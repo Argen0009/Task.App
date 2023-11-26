@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".ui.task.TaskFragment">
+    tools:context=".ui.task.TaskFragment"
+    >
 
     <EditText
         android:id="@+id/et_title"

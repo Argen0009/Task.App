@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
+import com.example.taskapp.App
+import com.example.taskapp.R
 import com.example.taskapp.databinding.FragmentTaskBinding
 import com.example.taskapp.model.Task
 
@@ -25,22 +27,19 @@ class TaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnSave.setOnClickListener {
-            val title = binding.etTitle.text.toString()
-            val desc = binding.etDesc.text.toString()
-
-            if (title.isEmpty() || desc.isEmpty()) {
-                if (title.isEmpty()) {
-                    binding.etTitle.error = "Please fill in this field"
-                }
-                if (desc.isEmpty()) {
-                    binding.etDesc.error = "Please fill in this field"
-                }
-            } else {
-                val data = Task(et_title = title, et_desc = desc)
-                setFragmentResult(TASK_RESULT_KEY, bundleOf(TASK_KEY to data))
-                findNavController().navigateUp()
-            }
+            if (binding.etTitle.text.isNotBlank()) {
+                extracted()
+            } else binding.etTitle.error = getString(R.string.title_emty_error)
         }
+    }
+
+    private fun extracted() {
+        val data = Task(
+            et_title = binding.etTitle.text.toString(),
+            et_desc = binding.etDesc.text.toString()
+        )
+        App.db.taskDoa().insert(data)
+        findNavController().navigateUp()
     }
 
     companion object {

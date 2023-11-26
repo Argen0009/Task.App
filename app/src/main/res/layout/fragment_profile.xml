@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="#2D2F31"
     tools:context=".ui.profile.ProfileFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
          android:src="@drawable/baseline_person_24"
         app:shapeAppearanceOverlay="@style/circular"
-        app:civ_border_color="#FF000000"
+        app:civ_border_color="#EAE7E7"
         app:civ_border_width="2dp"
         tools:ignore="MissingConstraints" />
 

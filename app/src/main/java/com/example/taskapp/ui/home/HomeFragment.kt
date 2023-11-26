@@ -1,21 +1,22 @@
 package com.example.taskapp.ui.home
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
+import com.example.taskapp.App
 import com.example.taskapp.databinding.FragmentHomeBinding
-import com.example.taskapp.model.Task
-import com.example.taskapp.ui.home.adapter.HomeAdapter
-import com.example.taskapp.ui.task.TaskFragment
 import com.example.taskapp.R
+import com.example.taskapp.model.Task
+import com.example.taskapp.ui.home.adapter.TaskAdapter
 
 class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
-    private val adapter = HomeAdapter()
+    private val adapter = TaskAdapter(this::onLongClickItem)
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -27,15 +28,29 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
+    private fun onLongClickItem(task: Task){
+        showAlertDiolog(task)
+    }
+
+    private fun showAlertDiolog(task: Task) {
+        val alertDiolog = AlertDialog.Builder(requireContext())
+        alertDiolog.setTitle(task.et_title)
+            .setMessage("Вы точно хотите удалить?")
+            .setCancelable(true)
+            .setPositiveButton("да"){_,_->
+                App.db.taskDoa().delete(task)
+                val data = App.db.taskDoa().getAll()
+                adapter.addTask(data)
+            }
+            .setNegativeButton("Нет"){_,_-> }
+            .show()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.Task.adapter = adapter
-
-        setFragmentResultListener(TaskFragment.TASK_RESULT_KEY) { _, bundle ->
-            val data = bundle.getSerializable(TaskFragment.TASK_KEY)as Task
-            data?.let { task -> adapter.addTask(task) }
-        }
-
+        val data = App.db.taskDoa().getAll()
+        adapter.addTask(data)
         binding.fab.setOnClickListener {
             findNavController().navigate(R.id.taskFragment)
         }

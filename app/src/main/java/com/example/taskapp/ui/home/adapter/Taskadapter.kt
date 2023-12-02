@@ -1,16 +1,17 @@
 package com.example.taskapp.ui.home.adapter
 
 import android.view.LayoutInflater
-import android.view.View.OnLongClickListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.taskapp.databinding.HomeItemBinding
 import com.example.taskapp.model.Task
 
 class TaskAdapter(
-    val onLongClickItem:(task:Task) -> Unit
-) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
+    val onLongClickItem: (task: Task) -> Unit,
 
+    val onClick: (task: Task) -> Unit,
+
+    ) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
     private val list = arrayListOf<Task>()
     fun addTask(tasks: List<Task>) {
@@ -37,14 +38,17 @@ class TaskAdapter(
     inner class TaskViewHolder(private val binding: HomeItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(task: Task) {
-            binding.tvTitle.text = task.et_title
-            binding.tvDesc.text = task.et_desc
-
+            binding.tvTitle.text = task.title
+            binding.tvDesc.text = task.desc
             itemView.setOnLongClickListener {
                 onLongClickItem(task)
                 true
             }
-
+            itemView.setOnClickListener {
+                onClick(task)
+                true
             }
         }
     }
+
+}

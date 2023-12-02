@@ -3,6 +3,7 @@ package com.example.taskapp.data.local
 import android.content.Context
 
 class Pref(private val context: Context) {
+
     private val pref = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
     fun onShowed(): Boolean {
         return pref.getBoolean(SHOWED_KEY, false)
@@ -11,6 +12,7 @@ class Pref(private val context: Context) {
     fun onBoardingShow() {
         pref.edit().putBoolean(SHOWED_KEY, true).apply()
     }
+
     fun saveName(name:String){
         pref.edit().putString(NAME_KEY,name).apply()
     }
@@ -23,6 +25,5 @@ class Pref(private val context: Context) {
         const val PREF_NAME = "pref.name"
         const val SHOWED_KEY = "showed.key"
         const val NAME_KEY = "name.key"
-
     }
 }

@@ -1,7 +1,6 @@
 package com.example.taskapp
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.navigation.findNavController
@@ -10,10 +9,12 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.taskapp.data.local.Pref
 import com.example.taskapp.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
     private val pref: Pref by lazy {
         Pref(this)
     }
@@ -37,7 +38,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.taskFragment,
                 R.id.navigation_profile,
             )
-
         )
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             if (destination.id == R.id.onBoardingFragment) {

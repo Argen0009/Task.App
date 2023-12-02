@@ -6,17 +6,16 @@ import com.example.taskapp.data.local.db.AppDatabase
 
 class App : Application() {
 
-    override fun onCreate(){
+    override fun onCreate() {
         super.onCreate()
         db = Room.databaseBuilder(
             applicationContext,
-            AppDatabase::class.java,"database-name"
+            AppDatabase::class.java, "database-name"
         ).allowMainThreadQueries().build()
     }
 
-
-
-    companion object{
+    companion object {
         lateinit var db: AppDatabase
     }
+
 }

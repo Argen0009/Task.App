@@ -18,7 +18,6 @@ interface TaskDao {
     @Update
     fun update(task: Task)
 
-    @Query("SELECT * FROM task ORDER BY et_title DESC")
+    @Query("SELECT * FROM task ORDER BY title DESC")
     fun getAll(): List<Task>
-
 }

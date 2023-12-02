@@ -12,7 +12,7 @@ import com.example.taskapp.model.Onboarding
 class OnBoardingAdapter(private val onClick: () -> Unit) :
     Adapter<OnBoardingAdapter.OnBoardingViewHolder>() {
 
-    private val list = arrayListOf<Onboarding>(
+    private val list = arrayListOf(
         Onboarding(
             "https://cdni.iconscout.com/illustration/premium/thumb/future-technology-3391260-2937867.png",
             "Fresh food",
@@ -28,9 +28,7 @@ class OnBoardingAdapter(private val onClick: () -> Unit) :
             "Easy Payment",
             "Lorem impsum dolor sit amet, consectetuer adipiscing elit.Aenean commodo ligula eget dolor"
         )
-
     )
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OnBoardingViewHolder {
         val binding = ItemOnboardingBinding.inflate(
@@ -52,8 +50,8 @@ class OnBoardingAdapter(private val onClick: () -> Unit) :
     inner class OnBoardingViewHolder(private val binding: ItemOnboardingBinding) :
         ViewHolder(binding.root) {
         fun bind(boarding: Onboarding) {
-            binding.tvTitle.text = boarding.tv_title
-            binding.tvDesc.text = boarding.tv_desc
+            binding.title.text = boarding.title
+            binding.desc.text = boarding.desc
             Glide.with(binding.root)
                 .load(boarding.image)
                 .into(binding.ivBoard)
@@ -63,4 +61,5 @@ class OnBoardingAdapter(private val onClick: () -> Unit) :
             binding.btnStart.setOnClickListener { onClick() }
         }
     }
+
 }

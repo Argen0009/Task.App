@@ -14,8 +14,6 @@ import me.relex.circleindicator.CircleIndicator3
 
 class OnBoardingFragment : Fragment() {
 
-    private val adapter = OnBoardingAdapter(this::OnClick)
-
     private lateinit var binding: FragmentOnBoardingBinding
 
     private val pref: Pref by lazy {
@@ -27,16 +25,18 @@ class OnBoardingFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentOnBoardingBinding.inflate(inflater, container, false)
+
+        val onClickListener: () -> Unit = {
+            pref.onBoardingShow()
+            findNavController().navigate(R.id.navigation_home)
+        }
+
+        val adapter = OnBoardingAdapter(requireContext(), onClickListener)
         binding.viewPager.adapter = adapter
 
         val indicator: CircleIndicator3 = binding.indicator
         indicator.setViewPager(binding.viewPager)
         return binding.root
-    }
-
-    private fun OnClick() {
-        pref.onBoardingShow()
-        findNavController().navigate(R.id.navigation_home)
     }
 
 }

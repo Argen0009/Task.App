@@ -8,4 +8,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="name">Name</string>
     <string name="title_emty_error">Заполните это поле</string>
+    <string name="corfirm">Corfirm</string>
+    <string name="send">Send</string>
+    <string name="phone_number">Phone number</string>
+    <string name="code">Code</string>
 </resources>

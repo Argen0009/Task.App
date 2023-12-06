@@ -6,19 +6,13 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.airbnb.lottie.LottieComposition
-import com.airbnb.lottie.LottieCompositionFactory
-import com.airbnb.lottie.LottieListener
 import com.example.taskapp.R
 import com.example.taskapp.databinding.ItemOnboardingBinding
 import com.example.taskapp.model.Onboarding
 
 
 class OnBoardingAdapter(
-    private val context: Context,
-
-    private val onClick: () -> Unit,
-
+    private val onClick: () -> Unit
     ) : Adapter<OnBoardingAdapter.OnBoardingViewHolder>() {
 
     private val list = arrayListOf<Onboarding>(
@@ -58,29 +52,16 @@ class OnBoardingAdapter(
 
     inner class OnBoardingViewHolder(private val binding: ItemOnboardingBinding, context: Context) :
         ViewHolder(binding.root) {
+
         fun bind(boarding: Onboarding) {
             binding.title.text = boarding.title
             binding.desc.text = boarding.desc
+            boarding.animationUrl?.let { binding.ivBoard.setAnimation(it) }
 
-            val animationView = binding.ivBoard
-            val animationUrl = boarding.animationUrl
-
-            val loadedListener = object : LottieListener<LottieComposition> {
-                override fun onResult(result: LottieComposition?) {
-                    result?.let {
-                        animationView.setComposition(it)
-                        animationView.playAnimation()
-                        binding.btnStart.isVisible = adapterPosition == list.lastIndex
-                        binding.skip.isVisible = adapterPosition != list.lastIndex
-                    }
-                }
-            }
-            val compositionTask = LottieCompositionFactory.fromRawRes(context, boarding.animationUrl)
-            compositionTask.addListener(loadedListener)
-
-            binding.skip.setOnClickListener { onClick.invoke() }
-            binding.btnStart.setOnClickListener { onClick.invoke() }
+            binding.btnStart.isVisible = adapterPosition == list.lastIndex
+            binding.skip.isVisible = adapterPosition != list.lastIndex
+            binding.skip.setOnClickListener { onClick() }
+            binding.btnStart.setOnClickListener { onClick() }
         }
     }
-
 }

@@ -3,29 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".ui.task.TaskFragment"
-    >
+    tools:context=".ui.aoth.accept.AcceptFragment">
 
     <EditText
-        android:id="@+id/title"
+        android:id="@+id/et_code"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Title" />
-
-    <EditText
-        android:id="@+id/desc"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:hint="Description" />
+        android:hint="@string/code" />
 
     <Button
-        android:id="@+id/btn_save"
+        android:id="@+id/btn_confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:text="Save" />
+        android:text="@string/corfirm" />
+
 </LinearLayout>

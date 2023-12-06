@@ -31,12 +31,11 @@ class OnBoardingFragment : Fragment() {
             findNavController().navigate(R.id.navigation_home)
         }
 
-        val adapter = OnBoardingAdapter(requireContext(), onClickListener)
+        val adapter = OnBoardingAdapter(onClickListener)
         binding.viewPager.adapter = adapter
 
         val indicator: CircleIndicator3 = binding.indicator
         indicator.setViewPager(binding.viewPager)
         return binding.root
     }
-
 }

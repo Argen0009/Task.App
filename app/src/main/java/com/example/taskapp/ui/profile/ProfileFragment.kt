@@ -29,9 +29,9 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.etProfile.setText(pref.getName())
+
         binding.etProfile.addTextChangedListener {
             pref.saveName(binding.etProfile.text.toString())
         }
     }
-
 }

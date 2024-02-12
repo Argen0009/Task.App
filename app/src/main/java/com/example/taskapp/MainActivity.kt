@@ -10,7 +10,6 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.taskapp.data.local.Pref
 import com.example.taskapp.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 
 class MainActivity : AppCompatActivity() {
@@ -33,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         if (!pref.onShowed())
             navController.navigate(R.id.onBoardingFragment)
 
-        if(FirebaseAuth.getInstance().currentUser?.uid == null){
+        if (FirebaseAuth.getInstance().currentUser?.uid == null) {
             navController.navigate(R.id.phoneFragment)
         }
 

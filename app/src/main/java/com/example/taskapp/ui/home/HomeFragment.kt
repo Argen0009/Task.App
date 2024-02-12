@@ -2,6 +2,7 @@ package com.example.taskapp.ui.home
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,9 +34,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.Task.adapter = adapter
-
+        val data = App.db.taskDoa().getAll()
+        adapter.submitList(data)
+        Log.e("ololo","onViewCreated" + data)
         binding.fab.setOnClickListener {
             findNavController().navigate(R.id.taskFragment)
         }
@@ -48,15 +50,11 @@ class HomeFragment : Fragment() {
             .setCancelable(true)
             .setPositiveButton("да") { _, _ ->
                 App.db.taskDoa().delete(task)
-                setData()
+                val data = App.db.taskDoa().getAll()
+                adapter.submitList(data)
             }
             .setNegativeButton("Нет") { _, _ -> }
             .show()
-    }
-
-    private fun setData() {
-        val data = App.db.taskDoa().getAll()
-        adapter.addTask(data)
     }
 
     override fun onDestroyView() {

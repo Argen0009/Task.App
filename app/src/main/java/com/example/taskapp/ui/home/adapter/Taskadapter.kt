@@ -2,37 +2,29 @@ package com.example.taskapp.ui.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.taskapp.databinding.HomeItemBinding
 import com.example.taskapp.model.Task
 
 class TaskAdapter(
     val onLongClickItem: (task: Task) -> Unit,
-
     val onClick: (task: Task) -> Unit,
-
-    ) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
-
-    private val list = arrayListOf<Task>()
-    fun addTask(tasks: List<Task>) {
-        list.clear()
-        list.addAll(tasks)
-        notifyDataSetChanged()
-    }
+    ) : ListAdapter<Task,TaskAdapter.TaskViewHolder>(TaskDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        val binding = HomeItemBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
+        return TaskViewHolder(
+            ItemTaskBinding.inflace(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
+            )
         )
-        return TaskViewHolder(binding)
     }
 
-    override fun getItemCount() = list.size
-
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(getItem(position))
     }
 
     inner class TaskViewHolder(private val binding: HomeItemBinding) :
@@ -50,5 +42,11 @@ class TaskAdapter(
             }
         }
     }
+}
+class TaskDiffCallback : DiffUtil.ItemCallback<Task>(){
+    override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean =
+        oldItem.uit == newItem.uit
 
+    override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean =
+        oldItem == newItem
 }
